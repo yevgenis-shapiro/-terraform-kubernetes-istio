@@ -19,13 +19,9 @@ Crossplane lets you bundle multiple cloud resources together into higher-level a
 Crossplane works well with GitOps practices, enabling teams to manage cloud infrastructure in the same way they manage Kubernetes workloads: declaratively and with continuous reconciliation.
 ✅ Community and Ecosystem:
 Being an open-source project, Crossplane has a growing community and a rich ecosystem of providers and compositions that you can leverage.
+```
 
-🎯 Installation
-
-How to launch a Crossplane : 
-
-🚀 Key Features of Crossplane
-
+🎯 Configuration
 
 ## Kubernetes
 ```
