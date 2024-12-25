@@ -10,7 +10,7 @@ Hardware Specification : Will be soon
 
 🎯 Installation
 
-How to launch a Kyverno setup : Please talk with me directly 
+How to launch a Crossplane : 
 
 🚀
 
