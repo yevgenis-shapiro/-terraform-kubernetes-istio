@@ -16,7 +16,7 @@ How to launch a Crossplane :
 
 
 
-## 
+## Kubernetes
 ```
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
@@ -24,5 +24,33 @@ metadata:
   name: provider-kubernetes
 spec:
   package: xpkg.upbound.io/upbound/provider-kubernetes:v0.16.0
-
+```
+## AWS
+```
+apiVersion: aws.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: aws-secret
+      key: creds
+```
+## Google
+```
+apiVersion: gcp.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+spec:
+  projectID: 
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: gcp-secret
+      key: creds
 ```
