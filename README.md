@@ -18,4 +18,11 @@ How to launch a Kyverno setup : Please talk with me directly
 
 ## 
 ```
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-kubernetes
+spec:
+  package: xpkg.upbound.io/upbound/provider-kubernetes:v0.16.0
+
 ```
