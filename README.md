@@ -21,7 +21,7 @@ Crossplane works well with GitOps practices, enabling teams to manage cloud infr
 Being an open-source project, Crossplane has a growing community and a rich ecosystem of providers and compositions that you can leverage.
 ```
 
-🎯 Example of Configuration
+🔨 Example : Config 
 
 ## AWS
 ```
