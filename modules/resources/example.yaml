@@ -1,0 +1,39 @@
+apiVersion: in-cluster.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: provider-in-cluster
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: cluster-config
+      key: kubeconfig
+      namespace: default
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: testsecret
+type: Opaque
+data:
+  password: wdvggWeLl1AN14NWsePcWQ
+
+---
+
+apiVersion: database.in-cluster.crossplane.io/v1alpha1
+kind: Postgres
+metadata:
+  name: "postgresdb"
+spec:
+  forProvider:
+    database: "test"
+    databaseSize: "1Gi"
+    storageClass: "manual"
+    masterUsername: "testuser"
+  providerConfigRef:
+    name: "provider-in-cluster"
+  writeConnectionSecretToRef:
+    name: "out-secret"
+    namespace: "default"
