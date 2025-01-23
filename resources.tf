@@ -9,20 +9,11 @@ resource "helm_release" "crossplane" {
 
   set {
     name  = "replicas"
-    value = "1"
+    value = "2"
   }
   set {
     name  = "deploymentStrategy"
     value = "RollingUpdate"
-  }
-  set {
-    name  = "image.repository"
-    value = "xpkg.upbound.io/crossplane/crossplane"
-  }
-
-  set {
-    name  = "image.tag"
-    value = "alpha"
   }
 
   set {
