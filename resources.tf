@@ -1,45 +1,51 @@
-
-
-###-kong
-resource "helm_release" "kong" {
-  name       = "kong"
-
-  repository = "https://charts.konghq.com"
-  chart      = "kong"
+resource "helm_release" "crossplane" {
+  name             = "crossplane"
+  repository       = "https://charts.crossplane.io/stable"
+  chart            = "crossplane"
+  namespace        = "crossplane-system"
   create_namespace = true
-  wait             = true
+  timeout          = 300
+  depends_on = [helm_release.ingress_nginx]
+
   set {
-    name  = "ingressController.enabled"
-    value = "true"
+    name  = "replicas"
+    value = "1"
+  }
+  set {
+    name  = "deploymentStrategy"
+    value = "RollingUpdate"
+  }
+  set {
+    name  = "image.repository"
+    value = "xpkg.upbound.io/crossplane/crossplane"
   }
 
   set {
-    name  = "admin.enabled"
-    value = "true"
+    name  = "image.tag"
+    value = "alpha"
   }
 
   set {
-    name  = "admin.http.enabled"
-    value = "true"
+    name  = "image.pullPolicy"
+    value = "Always"
   }
-  
-  set {
-    name  = "proxy.enabled"
-    value = "true"
-  }
-  
-  set {
-    name  = "proxy.type"
-    value = "ClusterIP"
-  }
-
-  set {
-    name  = "ingressController.installCRDs"
-    value = "false"
-  }
-  depends_on = [helm_release.argocd]
 }
 
+resource "null_resource" "wait_for_crossplane" {
+  triggers = {
+    key = uuid()
+  }
 
+  provisioner "local-exec" {
 
+    command = <<EOF
+      printf "\nWaiting for the crossplane pods to start...\n"
+      sleep 5
+      until kubectl wait -n ${helm_release.crossplane.namespace} --for=condition=Ready pods --all; do
+        sleep 2
+      done  2>/dev/null
+    EOF
+  }
 
+  depends_on = [helm_release.crossplane]
+}

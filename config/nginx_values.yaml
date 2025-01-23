@@ -1,5 +1,4 @@
 ---
-# nginx_ingress_values.yaml
 
 controller:
   updateStrategy:
